@@ -10,7 +10,9 @@ include 'config/app.php';
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>AdminLTE 3 | Dashboard</title>
+
+
+    <title><?= $title; ?></title>
 
     <!-- DataTables -->
     <link rel="stylesheet" href="assets-template/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
@@ -39,6 +41,8 @@ include 'config/app.php';
     <link rel="stylesheet" href="assets-template/plugins/daterangepicker/daterangepicker.css">
     <!-- summernote -->
     <link rel="stylesheet" href="assets-template/plugins/summernote/summernote-bs4.min.css">
+    <!-- jQuery -->
+    <script src="assets-template/plugins/jquery/jquery.min.js"></script>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -58,10 +62,22 @@ include 'config/app.php';
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="index3.html" class="nav-link">Home</a>
+                    <a href="index.php" class="nav-link">Barang</a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="#" class="nav-link">Contact</a>
+                    <a href="mahasiswa.php" class="nav-link">Mahasiswa</a>
+                </li>
+
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="pegawai.php" class="nav-link">Pegawai</a>
+                </li>
+
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="email.php" class="nav-link">Kirim Email</a>
+                </li>
+
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="akun.php" class="nav-link">Akun</a>
                 </li>
             </ul>
 
@@ -208,11 +224,10 @@ include 'config/app.php';
                 <!-- Sidebar user panel (optional) -->
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
-                        <img src="assets-template/dist/img/user2-160x160.jpg" class="img-circle elevation-2"
-                            alt="User Image">
+                        <img src="assets-template/dist/img/pp.jpg" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
-                        <a href="#" class="d-block">Alexander Pierce</a>
+                        <a href="#" class="d-block">Ibnu Ramadhan</a>
                     </div>
                 </div>
 
@@ -237,7 +252,7 @@ include 'config/app.php';
              with font-awesome or any other icon font library -->
                         <li class="nav-header">Daftar Menu</li>
                         <li class="nav-item">
-                            <a href="" class="nav-link">
+                            <a href="index.php" class="nav-link">
                                 <i class="nav-icon fas fa-box"></i>
                                 <p>
                                     Data Barang
@@ -245,23 +260,42 @@ include 'config/app.php';
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="" class="nav-link">
+                            <a href="mahasiswa.php" class="nav-link">
                                 <i class="nav-icon fas fa-user-graduate"></i>
                                 <p>
                                     Data Mahasiswa
                                 </p>
                             </a>
                         </li>
+
                         <li class="nav-item">
-                            <a href="" class="nav-link">
-                                <i class="nav-icon fas fa-user"></i>
+                            <a href="pegawai.php" class="nav-link">
+                                <i class="nav-icon fas fa-users"></i>
                                 <p>
-                                    Data Mahasiswa
+                                    Data Pegawai (Realtime)
+                                </p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="email.php" class="nav-link">
+                                <i class="nav-icon fas fa-envelope"></i>
+                                <p>
+                                    Kirim Email (PHPMailer)
+                                </p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="akun.php" class="nav-link">
+                                <i class="nav-icon fas fa-user-cog"></i>
+                                <p>
+                                    Data Akun
                                 </p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="" class="nav-link">
+                            <a href="logout.php" class="nav-link">
                                 <i class="nav-icon fas fa-sign-out-alt"></i>
                                 <p>
                                     Logout

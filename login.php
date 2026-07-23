@@ -9,30 +9,46 @@ if (isset($_POST['login'])) {
     $username = mysqli_real_escape_string($db, $_POST['username']);
     $password = mysqli_real_escape_string($db, $_POST['password']);
 
-    // check username
-    $result = mysqli_query($db, "SELECT * FROM akun WHERE username = '$username'");
+    // secret key
+    $secret_key = "6LeDmF0tAAAAAFC5yaf74flEtfIu4hvYlzbkbB8A";
 
-    // jika ada usernya
-    if (mysqli_num_rows($result) == 1) {
-        // check passwordnya
-        $hasil = mysqli_fetch_assoc($result);
+    $verifikasi = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret=' . $secret_key . '&response=' . $_POST['g-recaptcha-response']);
 
-        if (password_verify($password, $hasil['password'])) {
-            // set session
-            $_SESSION['login']    = true;
-            $_SESSION['id_akun']  = $hasil['id_akun'];
-            $_SESSION['nama']     = $hasil['nama'];
-            $_SESSION['username'] = $hasil['username'];
-            $_SESSION['email']    = $hasil['email'];
-            $_SESSION['level']    = $hasil['level'];
+    $response = json_decode($verifikasi);
 
-            // jika login benar arahkan ke file index.php
-            header("Location: index.php");
-            exit;
+    if ($response->success) {
+        // check username
+        $result = mysqli_query($db, "SELECT * FROM akun WHERE username = '$username'");
+
+        // jika ada usernya
+        if (mysqli_num_rows($result) == 1) {
+            // check passwordnya
+            $hasil = mysqli_fetch_assoc($result);
+
+            if (password_verify($password, $hasil['password'])) {
+                // set session
+                $_SESSION['login']    = true;
+                $_SESSION['id_akun']  = $hasil['id_akun'];
+                $_SESSION['nama']     = $hasil['nama'];
+                $_SESSION['username'] = $hasil['username'];
+                $_SESSION['email']    = $hasil['email'];
+                $_SESSION['level']    = $hasil['level'];
+
+                // jika login benar arahkan ke file index.php
+                header("Location: index.php");
+                exit;
+            } else {
+                // jika password salah
+                $error = true;
+            }
+        } else {
+            // jika username tidak ditemukan
+            $error = true;
         }
+    } else {
+        // jika recaptcha tidak valid
+        $errorRecaptcha = true;
     }
-    // jika tidak ada usernya/login salah
-    $error = true;
 }
 
 ?>
@@ -49,8 +65,6 @@ if (isset($_POST['login'])) {
     <title>Admin Login</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/sign-in/">
-
-
 
     <!-- Bootstrap core CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -76,7 +90,6 @@ if (isset($_POST['login'])) {
     }
     </style>
 
-
     <!-- Custom styles for this template -->
     <link href="assets/css/signin.css" rel="stylesheet">
 </head>
@@ -94,6 +107,12 @@ if (isset($_POST['login'])) {
             </div>
             <?php endif; ?>
 
+            <?php if (isset($errorRecaptcha)) : ?>
+            <div class="alert alert-danger text-center">
+                <b>Recaptcha Tidak Valid</b>
+            </div>
+            <?php endif; ?>
+
             <div class="form-floating">
                 <input type="text" name="username" class="form-control" id="floatingInput" placeholder="Username..."
                     required>
@@ -105,11 +124,16 @@ if (isset($_POST['login'])) {
                 <label for="floatingPassword">Password</label>
             </div>
 
+            <div class="mb-3 mt-3">
+                <div class="g-recaptcha" data-sitekey="6LeDmF0tAAAAABzRIKw4iOcFnN9miPm4dT5UN2XM"></div>
+            </div>
+
             <button class="w-100 btn btn-lg btn-primary" type="submit" name="login">Log In</button>
             <p class="mt-5 mb-3 text-muted">&copy; 2017–2021</p>
         </form>
     </main>
 
+    <script src="https://www.google.com/recaptcha/api.js"></script>
 
 </body>
 
