@@ -204,7 +204,7 @@ if (isset($_POST['ubah'])) {
                     <div class="mb-3">
                         <label for="password">Password</label>
                         <input type="password" name="password" id="password" class="form-control" required
-                            minlength="6">
+                            minlength="5">
                     </div>
 
                     <div class="mb-3">
@@ -289,7 +289,7 @@ if (isset($_POST['ubah'])) {
                         <label for="password<?= $akun['id_akun']; ?>">Password <small>(Masukan password
                                 baru/lama)</small></label>
                         <input type="password" name="password" id="password<?= $akun['id_akun']; ?>"
-                            class="form-control" required minlength="6">
+                            class="form-control" required minlength="5">
                     </div>
 
                     <?php if ($_SESSION['level'] == 1) : ?>

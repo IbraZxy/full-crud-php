@@ -14,7 +14,7 @@ if (!isset($_SESSION["login"])) {
 if ($_SESSION["level"] != 1 and $_SESSION["level"] != 3) {
     echo "<script>
             alert('Perhatian anda tidak punya hak akses');
-            document.location.href = 'crud-modal.php';
+            document.location.href = 'akun.php';
           </script>";
     exit;
 }
@@ -61,7 +61,7 @@ foreach ($data_jk as $j) {
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="index.php">Home</a></li>
+                        <li class="breadcrumb-item"><a href="mahasiswa.php">Home</a></li>
                         <li class="breadcrumb-item active">Data Mahasiswa</li>
                     </ol>
                 </div>

@@ -15,7 +15,7 @@ if (!isset($_SESSION['login'])) {
 if ($_SESSION['level'] != 1 and $_SESSION['level'] != 3) {
     echo "<script>
             alert('Anda tidak punya hak akses');
-            document.location.href = 'crud-modal.php';
+            document.location.href = 'akun.php';
           </script>";
     exit;
 }
